@@ -10,3 +10,4 @@ router.get('/list', articuloController.list);
 
 
 module.exports = router;
+
