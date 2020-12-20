@@ -21,9 +21,9 @@ exports.add = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
         const reg = await db.Categoria.update({
-            nombre: req.body.nombre, descripcion:
-                req.body.descripcion
-        }, { where: { id: req.body._id } });
+            nombre: req.body.nombre, 
+            descripcion: req.body.descripcion
+        }, { where: { id: req.body.id } });
         res.status(200).json(reg);
     } catch (e) {
         res.status(500).send({
@@ -36,7 +36,7 @@ exports.update = async (req, res, next) => {
 exports.activate = async (req, res, next) => {
     try {
         console.log(req.body._id);
-        const reg = await db.Categoria.update({ estado: 1 }, { where: { id: req.body._id } });
+        const reg = await db.Categoria.update({ estado: 1 }, { where: { id: req.body.id } });
         res.status(200).json(reg);
     } catch (e) {
         res.status(500).send({
@@ -48,7 +48,7 @@ exports.activate = async (req, res, next) => {
 
 exports.deactivate = async (req, res, next) => {
     try {
-        const reg = await db.Categoria.update({ estado: 0 }, { where: { id: req.body._id } });
+        const reg = await db.Categoria.update({ estado: 0 }, { where: { id: req.body.id } });
         res.status(200).json(reg);
     } catch (e) {
         res.status(500).send({
