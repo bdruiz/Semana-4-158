@@ -6,8 +6,11 @@ const auth = require('../../middlewares/auth.js');
 const router = routerx();
 
 router.post('/login', UsuarioController.signin);
-router.post('/add', UsuarioController.add);
-router.get('/list', UsuarioController.list);
+router.post('/add', auth.verifyUsuario, UsuarioController.add);
+router.get('/list', auth.verifyUsuario, UsuarioController.list);
+router.put('/update',auth.verifyUsuario, UsuarioController.update);
+router.put('/activate', auth.verifyUsuario, UsuarioController.activate);
+router.put('/deactivate', auth.verifyUsuario, UsuarioController.deactivate);
 
 
 module.exports = router;
