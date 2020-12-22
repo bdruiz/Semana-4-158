@@ -42,3 +42,47 @@ exports.list = async (req, res, next) => {
     const registro = await db.Usuario.findAll();
     res.status(200).json(registro);
 };
+
+
+exports.update = async (req, res, next) => {
+    try {
+        const reg = await db.Usuario.update({
+            nombre: req.body.nombre, 
+            password: bcrypt.hashSync(req.body.password, 10),
+            rol: req.body.rol,
+            email: req.body.email
+
+        }, { where: { id: req.body.id } });
+        res.status(200).json(reg);
+    } catch (e) {
+        res.status(500).send({
+            message: 'Ocurrió un error'
+        });
+        next(e);
+    }
+};
+
+exports.activate = async (req, res, next) => {
+    try {
+        console.log(req.body._id);
+        const reg = await db.Usuario.update({ estado: 1 }, { where: { id: req.body.id } });
+        res.status(200).json(reg);
+    } catch (e) {
+        res.status(500).send({
+            message: 'Ocurrió un error'
+        });
+        next(e);
+    }
+};
+
+exports.deactivate = async (req, res, next) => {
+    try {
+        const reg = await db.Usuario.update({ estado: 0 }, { where: { id: req.body.id } });
+        res.status(200).json(reg);
+    } catch (e) {
+        res.status(500).send({
+            message: 'Ocurrió un error'
+        });
+        next(e);
+    }
+}
