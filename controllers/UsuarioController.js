@@ -47,10 +47,14 @@ exports.list = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
         const reg = await db.Usuario.update({
-            nombre: req.body.nombre, 
+            nombre: req.body.nombre,
             password: bcrypt.hashSync(req.body.password, 10),
             rol: req.body.rol,
-            email: req.body.email
+            email: req.body.email,
+            tipo_documento: req.body.tipo_documento,
+            num_documento: req.body.num_documento,
+            direccion: req.body.direccion,
+            telefono: req.body.telefono
 
         }, { where: { id: req.body.id } });
         res.status(200).json(reg);
